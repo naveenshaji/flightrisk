@@ -44,6 +44,9 @@ body {
     font-size: 12px;
     color: rgba(179,189,198,1);
     background-color: rgba(48,51,54,1);
+    a {
+        color: #fff;
+    }
 }
 .header {
     background-color: #3d4146;
@@ -91,9 +94,27 @@ body {
         display: flex;
         justify-content: space-between;
         .left {
-            span {
+            span#total-num {
                 font-weight: bold;
             }
+        }
+    }
+}
+
+
+.footer {
+    background-color: #3d4146;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    .left {
+        display: flex;
+        .size, .transparency {
+            margin-right: 20px;
         }
     }
 }
