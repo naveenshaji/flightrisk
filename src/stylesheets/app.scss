@@ -1,3 +1,11 @@
+$yellow: rgba(255,204,5,1);
+$blue: rgba(53,193,224,1);
+$orange: rgba(250,170,67,1);
+$red: rgba(213,93,38,1);
+$grey: rgba(153,142,124,1);
+$primary: #383a3f;
+
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -49,7 +57,7 @@ body {
     }
 }
 .header {
-    background-color: #3d4146;
+    background-color: $primary;
     position: fixed;
     width: 100%;
     padding: 0px 30px;
@@ -78,7 +86,7 @@ body {
             display: flex;
             .label {
                 text-transform: uppercase;
-                font-weight: 500;
+                font-weight: 400;
                 margin-bottom: 5px;
             }
             .sort, .filter-phase, .filter-cause {
@@ -90,7 +98,7 @@ body {
         border-top: 1px solid #777;
         margin-top: 20px;
         padding-top: 10px;
-        padding-bottom: 15px;
+        padding-bottom: 10px;
         display: flex;
         justify-content: space-between;
         .left {
@@ -101,9 +109,97 @@ body {
     }
 }
 
+.main-flex {
+    padding: 30px;
+    padding-top: 160px;
+    display: flex;
+    .left {
+        flex: 3;
+        padding: 10px;
+        .start-year {
+            padding: 5px;
+            background-color: $primary;
+            display: inline;
+        }
+        .isotope {
+            margin-top: 50px;
+            .item {
+                border-radius: 50%;
+                height: 50px;
+                width: 50px;
+                background: $yellow;
+            }
+        }
+    }
+    .right {
+        width: 300px;
+        .years-panel {
+            position: fixed;
+            top: 150px;
+            bottom: 60px;
+            width: 250px;
+            right: 40px;
+            background: #3c4044;
+            border-radius: 5px;
+            padding: 20px;
+            box-sizing: border-box;
+            font-size: 10px;
+            .years {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 20px;
+                .item {
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                    .label {
+                        opacity: 0.7;
+                        transition: all 0.4s ease;
+                        margin-right: 10px;
+                    }
+                    .bars {
+                        display: flex;
+                        &>div {
+                            position: relative;
+                            width: 35px;
+                            height: 4px;
+                            transition: all 0.4s ease;
+                            &.yellow {
+                                background: $yellow;
+                            }
+                            &.blue {
+                                background: $blue;
+                            }
+                            &.orange {
+                                background: $orange;
+                            }
+                            &.red {
+                                background: $red;
+                            }
+                            &.grey {
+                                background: $grey;
+                            }
+                        }
+                    }
+                    &:hover {
+                        .label {
+                            opacity: 1;
+                        }
+                        .bars {
+                            &>div {
+                                height: 8px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 .footer {
-    background-color: #3d4146;
+    background-color: $primary;
     position: fixed;
     width: 100%;
     bottom: 0;
