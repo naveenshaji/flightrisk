@@ -52,11 +52,13 @@ body {
     font-size: 12px;
     color: rgba(179,189,198,1);
     background-color: rgba(48,51,54,1);
+    overflow-y: scroll;
     a {
         color: #fff;
     }
 }
 .header {
+    z-index: 99;
     background-color: $primary;
     position: fixed;
     width: 100%;
@@ -84,13 +86,53 @@ body {
         .right {
             margin-top: 20px;
             display: flex;
+            .clear-filters {
+                position: absolute;
+                right: 40px;
+                top: 80px;
+                font-size: 12px;
+                cursor: pointer;
+                display: none;
+                &.visible {
+                    display: block;
+                }
+                &:hover {
+                    text-decoration: underline;
+                    color: #fff;
+                }
+            }
             .label {
                 text-transform: uppercase;
                 font-weight: 400;
                 margin-bottom: 5px;
             }
             .sort, .filter-phase, .filter-cause {
-                margin-left: 20px;
+                margin-left: 30px;
+            }
+            .filter-cause, .filter-phase {
+                .icons {
+                    display: flex;
+                    margin-top: -4px;
+                    margin-left: -3px;
+                    &>div {
+                        margin-right: 3px;
+                        padding: 3px;
+                        box-sizing: border-box;
+                        border: 1px solid rgba(179,189,198,0);
+                        border-radius: 8px;
+                        height: 33px;
+                        opacity: 0.5;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                        &.active {
+                            border: 1px solid rgba(179,189,198,1);
+                            opacity: 1;
+                        }
+                        &:hover {
+                            border: 1px solid rgba(179,189,198,1);
+                        }
+                    }
+                }
             }
         }
     }
@@ -119,20 +161,76 @@ body {
         .start-year {
             padding: 5px;
             background-color: $primary;
-            display: inline;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .end-year {
+            padding: 5px;
+            background-color: $primary;
+            float: right;
+            margin-bottom: 50px;
+            margin-top: 0px;
+            margin-right: 30px;
         }
         .isotope {
             margin-top: 50px;
-            .item {
-                border-radius: 50%;
-                height: 50px;
-                width: 50px;
-                background: $yellow;
+            margin-left: 30px;
+            .item-wrapper {
+                width: 56px;
+                height: 0px;
+                margin-bottom: 75px;
+                position: absolute;
+                .info {
+                    display: none;
+                }
+                .item {
+                    border-radius: 50%;
+                    height: 50px;
+                    width: 50px;
+                    background: $yellow;
+                    position: absolute;
+                    transition: all 0.6s ease;
+                    &.human_error {
+                        background: $yellow;
+                    }
+                    &.mechanical {
+                        background: $orange;
+                    }
+                    &.weather {
+                        background: $blue;
+                    }
+                    &.criminal {
+                        background: $red;
+                    }
+                    &.unknown {
+                        background: $grey;
+                    }
+                    &.cconfirmed {
+                        opacity: 0.8;
+                    }
+                    &.cprobable {
+                        opacity: 0.6;
+                    }
+                    &.csuspected {
+                        opacity: 0.4;
+                    }
+                    &.cunknown {
+                        opacity: 0.2;
+                    }
+                    &:hover {
+                        opacity: 1;
+                        z-index: 9;
+                    }
+                    &.active {
+                        opacity: 1;
+                        z-index: 5;
+                    }
+                }
             }
         }
     }
     .right {
-        width: 300px;
+        width: 250px;
         .years-panel {
             position: fixed;
             top: 150px;
@@ -147,23 +245,50 @@ body {
             .years {
                 display: flex;
                 flex-direction: column;
+                justify-content: space-evenly;
+                height: calc(100% - 100px);
                 margin-bottom: 20px;
                 .item {
                     display: flex;
                     align-items: center;
                     cursor: pointer;
+                    &.hidden {
+                        .bars {
+                            width: 0;
+                        }
+                    }
+                    &.active {
+                        .label {
+                            opacity: 1;
+                            color: #fff;
+                        }
+                        .bars {
+                            width: 175px!important;
+                        }
+                    }
                     .label {
                         opacity: 0.7;
                         transition: all 0.4s ease;
-                        margin-right: 10px;
+                        min-width: 30px;
                     }
                     .bars {
+                        width: 175px;
                         display: flex;
+                        overflow: hidden;
+                        transition: all 1s ease;
+                        transition-delay: 0.8s;
                         &>div {
                             position: relative;
                             width: 35px;
                             height: 4px;
                             transition: all 0.4s ease;
+                            transition-delay: 0.8s;
+                            &.hidden {
+                                width: 0!important;
+                            }
+                            &.hidden_bars {
+                                width: 0!important;
+                            }
                             &.yellow {
                                 background: $yellow;
                             }
@@ -193,6 +318,41 @@ body {
                     }
                 }
             }
+            .totals {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                &>div {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    opacity: 1;
+                    transition: all 0.4s ease;
+                    &.disabled {
+                        opacity: 0.2;
+                    }
+                    &.c1 {
+                        color: $yellow;
+                    }
+                    &.c2 {
+                        color: $blue;
+                    }
+                    &.c3 {
+                        color: $orange;
+                    }
+                    &.c4 {
+                        color: $red;
+                    }
+                    &.c5 {
+                        color: $grey;
+                    }
+                    .num {
+                        font-weight: 700;
+                        padding-top: 6px;
+                        font-size: 13px;
+                    }
+                }
+            }
         }
     }
 }
@@ -207,10 +367,25 @@ body {
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
+    z-index: 99;
     .left {
         display: flex;
         .size, .transparency {
             margin-right: 20px;
         }
+    }
+}
+.tip {
+    .info-l {
+        font-size: 25px;
+        margin-top: 4px;
+        margin-bottom: 8px;
+        text-transform: capitalize;
+    }
+    .info-s {
+        display: block;
+        margin-top: 4px;
+        margin-bottom: 4px;
+        text-transform: capitalize;
     }
 }

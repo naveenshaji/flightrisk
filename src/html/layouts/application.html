@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="stylesheets/app.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="http://fonts.googleapis.com/css?family=Istok+Web:400,700|Oswald|Inconsolata" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />
     {% include "shared/app-icons.html" %}
     {% block head %}{% endblock %}
   </head>
@@ -15,6 +16,9 @@
     
     {% endblock %}
     {% block javascript %}
+      <script src="js/jquery.min.js"></script>
+      <script src="js/isotope.pkgd.min.js"></script>
+      <script type="text/javascript" src="js/jquery.powertip.min.js"></script>
       <script src="javascripts/app.js"></script>
     {% endblock %}
   </body>
